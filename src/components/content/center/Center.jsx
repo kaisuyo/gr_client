@@ -1,9 +1,15 @@
+import Database from "./database/Database"
+import styled from 'styled-components'
 
-const Center = () => {
+const CenterStyled = styled.div`
+  flex-grow: 1;
+  overflow: scroll;
+`
+const Center = ({ curState }) => {
   return(
-    <div>
-      Center
-    </div>
+    <CenterStyled>
+      {curState.name === 'Database' && <Database />}
+    </CenterStyled>
   )
 }
 
