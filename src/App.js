@@ -1,25 +1,47 @@
-import { useState } from 'react';
 import styled from 'styled-components'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
-import Content from './components/content/Content';
-import Sidebar from './components/sidebar/Sidebar';
+import 'antd/dist/reset.css';
+import "@ant-design/icons";
+import TopPage from './components/Toppage';
+import RegisterPage from './components/RegisterPage';
+import LoginPage from './components/LoginPage';
+import { createContext, useState } from 'react';
+import CoursePage from './components/CoursePage';
+import VideoPage from './components/VideoPage';
+import TestPage from './components/TestPage';
 
 const AppStyled = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 `
 
-function App() {
-  const items = [{ key: 0, name: "Home" }, { key: 1, name: "Database" }, { key: 2, name: "Test" }]
+const UserContext = createContext();
 
-  const [curState, setCurState] = useState(items[0])
-  return (
-      <AppStyled>
-        <Sidebar curState={curState} setCurState={(key) => setCurState(items.find(item => item.key===key))} items={items} />
-        <Content curState={curState} />
-      </AppStyled>
-  );
+function App() {
+
+  const [user, setUser] = useState(null);
+    return (
+      <BrowserRouter>
+      <UserContext.Provider value={{user, setUser}} >
+      <div>
+        <Routes>
+          <Route path="/" element={<TopPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/course" element={<CoursePage />} />
+          <Route path="/video" element={<VideoPage />} />
+          <Route path="/test" element={<TestPage />} />
+        </Routes>
+      </div>
+      </UserContext.Provider>
+      </BrowserRouter>
+    );
 }
 
 export default App;
+export { UserContext }
