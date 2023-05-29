@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Course from './CourseFilter/Course';
 import HeaderComponent from './common/HeaderComponent';
+import SuggestCourseFilter from './SuggestCourseFilter';
 
 const { Header } = Layout;
 
@@ -46,8 +47,14 @@ const TopPage = () => {
             children: <CourseFilter type="all"/>
           },
           {
-            label: "Khóa học của tôi",
+            label: "Gợi ý cho tôi",
             key: "2",
+            children: <SuggestCourseFilter />,
+            disabled: !user
+          },
+          {
+            label: "Khóa học của tôi",
+            key: "3",
             children: <CourseFilter type="self"/>,
             disabled: !user
           }
